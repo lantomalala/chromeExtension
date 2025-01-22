@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Scraping Tool with Proxy</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                min-width: 500px;
+	            overflow-x: hidden;
+            }
+            .form-control {
+                max-width: 600px;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+            }
+            textarea {
+                width: 100%;
+                margin-bottom: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                resize: vertical;
+            }
+            input[type='button'] {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+            }
+            input[type='button']:hover {
+                background-color: #0056b3;
+            }
+            #result {
+                margin-top: 20px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+                word-break: break-word;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style="text-align: center">Utiliser un Sélecteur de Catégorie avec Proxy</h2>
+        <form class="form-control">
+            <h3>Paste links here:</h3>
+            <textarea id="site-link" rows="2" placeholder="Enter the URL of the website"></textarea>
+            <h3>Sélecteur:</h3>
+            <textarea id="site-selecteur-categorie" rows="2" placeholder="Enter the CSS Selector"></textarea>
+            <input id="btn_go" type="button" value="Go" />
+        </form>
+        <div id="result" hidden></div>
+
+        <script>
+            async function get_links_categorie(link, selecteur, attribute, locationOrigin = '') {
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Proxy pour contourner CORS
+
+                function parseDOM(text, type = 'text/html') {
+                    let parser = new DOMParser();
+                    return parser.parseFromString(text, type);
+                }
+
+                async function get_resp(link) {
+                    let response = await fetch(proxyUrl + link); // Ajout du proxy
+                    if (response.ok) return await response.text();
+                    throw new Error(`Failed to fetch: ${response.status}`);
+                }
+
+                let responseText = await get_resp(link);
+                let doc = parseDOM(responseText);
+                let elements = doc.querySelectorAll(selecteur);
+                let tabResp = [];
+                elements.forEach(element => {
+                    tabResp.push(locationOrigin + element.getAttribute(attribute));
+                });
+                return tabResp;
+            }
+
+            document.getElementById('btn_go').addEventListener('click', async () => {
+                let link = document.getElementById('site-link').value.trim();
+                let selecteur = document.getElementById('site-selecteur-categorie').value.trim();
+                let resultDiv = document.getElementById('result');
+
+                if (!link || !selecteur) {
+                    resultDiv.hidden = false;
+                    resultDiv.textContent = 'Please provide both the link and the selector.';
+                    return;
+                }
+
+                try {
+                    let locationOrigin = "";
+                    let links = await get_links_categorie(link, selecteur, 'href', locationOrigin);
+                    console.log(links);
+                    resultDiv.hidden = false;
+                    resultDiv.textContent = links.length ? 'Extracted links:\n' + links.join('<!LIST!>') : 'No links found with the provided selector.';
+                } catch (error) {
+                    resultDiv.hidden = false;
+                    resultDiv.textContent = `Error: ${error.message}`;
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+  {
+    "manifest_version": 3,
+    "name": "Open multiple links",
+    "version": "1.0",
+    "description": "A Chrome extension to process and open multiple links separated by <!LIST!>.",
+    "permissions": ["storage", "activeTab", "scripting"],
+    "host_permissions": ["https://*/*"],
+    "content_scripts": [
+        {
+            "matches": ["https://*/*"],
+            "js": ["generalUtil.js"]
+        }
+    ],    
+    "action": {
+      "default_popup": "popup.html",
+      "icons": {
+        "128": "icon.png"
+      }
+    }
+  }
+  

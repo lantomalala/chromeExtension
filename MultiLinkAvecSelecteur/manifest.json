@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Get product Categorie",
+  "version": "1.0",
+  "description": "Easily extract product categories from websites by specifying the URL and category selector. Perfect for automated data collection and browsing.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://*/*"],
+  "content_scripts": [
+      {
+          "matches": ["https://*/*"],
+          "js": ["generalUtil.js"]
+      }
+  ],    
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

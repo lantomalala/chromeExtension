@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Scraping Tool with Proxy</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                min-width: 500px;
+                overflow-x: hidden;
+            }
+            .form-control {
+                max-width: 500px;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+            }
+            textarea, input {
+                width:95%;
+                margin-bottom: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                resize: vertical;
+            }
+            input[type='button'] {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+            }
+            input[type='button']:hover {
+                background-color: #0056b3;
+            }
+            #result {
+                margin-top: 20px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+                word-break: break-word;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style="text-align: center">Get product Categorie</h2>
+        <form class="form-control">
+            <h3>Paste links here:</h3>
+            <input type="text" id="site-link" rows="2" placeholder="Enter the URL of the website"></input>
+            <h3>Sélecteur:</h3>
+            <textarea id="site-selecteur-categorie" rows="2" placeholder="Enter the CSS Selector"></textarea>
+            <input id="btn_go" type="button" value="Go" />
+        </form>
+        <div id="result" hidden></div>
+
+        <!-- Lien vers le fichier JavaScript externe -->
+        <script src="popup.js"></script>
+    </body>
+</html>
