@@ -44,13 +44,26 @@
                 background-color: #f9f9f9;
                 word-break: break-word;
             }
+            .contains_element{
+                margin-right: 40px;
+            }
         </style>
     </head>
     <body>
         <h2 style="text-align: center">Get product Categorie</h2>
         <form class="form-control">
-            <h3>Paste links here:</h3>
-            <input type="text" id="site-link" rows="2" placeholder="Enter the URL of the website"></input>
+            
+            <div style="display: flex;">
+                <div class="contains_element">
+                    <h3>Paste links here:</h3>
+                    <input type="text" id="site-link"  rows="2" placeholder="Enter the URL of the website"></input>
+                </div>
+                <div>
+                    <h3>Paste location Origin:</h3>
+                    <input type="text" id="origin-link" rows="2" placeholder="Location Origin"></input>
+                </div>
+                
+            </div>
             <h3>Sélecteur:</h3>
             <textarea id="site-selecteur-categorie" rows="2" placeholder="Enter the CSS Selector"></textarea>
             <input id="btn_go" type="button" value="Go" />

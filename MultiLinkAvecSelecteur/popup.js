@@ -24,6 +24,7 @@ async function get_links_categorie(link, selecteur, attribute, locationOrigin = 
 // Ajouter l'événement 'click' au bouton
 document.getElementById('btn_go').addEventListener('click', async () => {
     let link = document.getElementById('site-link').value.trim();
+    let locationOrigin = document.getElementById('origin-link').value.trim();
     let selecteur = document.getElementById('site-selecteur-categorie').value.trim();
     let resultDiv = document.getElementById('result');
 
@@ -32,9 +33,9 @@ document.getElementById('btn_go').addEventListener('click', async () => {
         resultDiv.textContent = 'Please provide both the link and the selector.';
         return;
     }
-
+    if (!locationOrigin)
+        locationOrigin=""
     try {
-        let locationOrigin = '';
         let links = await get_links_categorie(link, selecteur, 'href', locationOrigin);
 
         resultDiv.hidden = false;
